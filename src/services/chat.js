@@ -7,7 +7,7 @@ const initialState = {
 }
 let state = initialState;
 
-const chartService = {
+const chatService = {
   init: () => {
     state = {...state, newDataCount: 0}
     subject.next(state)
@@ -28,4 +28,4 @@ const chartService = {
   initialState
 }
 
-export default chartService;
+export default chatService;

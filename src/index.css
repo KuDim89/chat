@@ -37,10 +37,12 @@ code {
     text-align: center;
     vertical-align: middle;
     border-radius: 30px;
+    margin: 10px 0;
 }
 
 .first-person {
     background: rgb(0, 173, 231);
+    float: left;
 }
 
 .second-person {
