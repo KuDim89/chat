@@ -22,10 +22,10 @@ const SecondPerson = () => {
 
   return (
       <div className="container">
-        <h2>Dmytro</h2>
+        <h2>Den</h2>
         <div className="chat-box">
           {chatState.data.map( message => (
-              <div>
+              <div key={Math.random() * 100}>
                 <p className={message.person}>{message.text}</p>
                 <div className="clear"></div>
               </div>
