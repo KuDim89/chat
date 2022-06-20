@@ -94,6 +94,10 @@ code {
     cursor: pointer;
 }
 
+.switcher-div a {
+    border: 2px solid transparent;
+}
+
 .switcher {
     background: #cecece;
     color: #141414;
