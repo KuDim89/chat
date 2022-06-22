@@ -1,22 +1,20 @@
 import React, {useEffect, useState} from 'react';
-import chatService from "../services/chat";
+import chatService from "../services/chatService";
 import {NavLink} from "react-router-dom";
+import camelize from "../utils/camelize";
 
 const Switcher = () => {
   const [chatState, setChatState] = useState(chatService.initialState);
   const location = window.location.href.split('/')[3];
-
-  console.log(location)
+  const personCamelize = camelize(location);
 
   useEffect(() => {
     chatService.subscribe(setChatState)
-    chatService.init();
-  }, [])
+    chatService.init(personCamelize);
+  }, [location])
 
-  const messageNotification = chatState.newDataCount > 0
-      && (<span className="notify">{chatState.newDataCount}</span>)
-
-  console.log(chatState.newDataCount)
+  const messageNotification = location && chatState[personCamelize].newDataCount > 0
+      && (<span className="notify">{chatState[personCamelize].newDataCount}</span>)
 
   return (
       <div className="switcher-div">

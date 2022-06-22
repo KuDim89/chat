@@ -1,34 +1,31 @@
 import React, {useLayoutEffect, useState} from 'react';
-import chatService from "../services/chat";
+import chatService from "../services/chatService";
+import camelize from "../utils/camelize";
 
-const SecondPerson = () => {
-  const [chatState, setChatState] = useState(chatService.initialState)
+const Person = ({name, person}) => {
+  const [chatState, setChatState] = useState(chatService.initialState);
 
   useLayoutEffect(() => {
     chatService.subscribe(setChatState);
-    chatService.init()
-  }, []);
+    chatService.init(camelize(person));
+  }, [person]);
 
   const onFormSubmit = e => {
     e.preventDefault();
-    const messageObject = {
-      person: 'second-person',
-      text: e.target.elements.messageInput.value.trim(),
-    };
-
-    chatService.sendMessage(messageObject);
-    document.getElementById('messageForm').reset();
+    chatService.sendMessage(e, camelize(person));
+    e.target.reset();
   }
 
   return (
       <div className="container">
-        <h2>Den</h2>
+        <h2>{name}</h2>
         <div className="chat-box">
           {chatState.data.map( message => (
-              <div key={Math.random() * 100}>
-                <p className={message.person}>{message.text}</p>
-                <div className="clear"></div>
-              </div>
+                <div key={Math.random() * 100} className={message.person}>
+                    <div className="message">{message.text}</div>
+                    <div className="date">{message.date}
+                    </div>
+                </div>
           ))}
         </div>
         <form id="messageForm" onSubmit={onFormSubmit}>
@@ -40,4 +37,4 @@ const SecondPerson = () => {
   );
 };
 
-export default SecondPerson;
+export default Person;
